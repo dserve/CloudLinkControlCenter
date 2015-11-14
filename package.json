@@ -1,0 +1,24 @@
+{
+  "name": "CloudLinkControlCenter",
+  "version": "0.0.1",
+  "author": "Dominik Serve",
+  "description": "",
+  "main": "./html/index.html",
+  "single-instance": false,
+  "window": {
+    "toolbar": true,
+    "width": 800,
+    "height": 700,
+    "always-on-top": false
+  },
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "dependencies": {
+    "moment": "^2.10.6",
+    "request": "^2.65.0",
+    "sweetalert": "*",
+    "url-join": "0.0.1"
+  }
+}

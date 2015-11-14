@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mi5 Startup</title>
+	
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="This is a NodeWebkit App, that guides through the startup routine of the mi5 showcase.">
+    <meta name="author" content="Dominik Serve">
+	
+	<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/simple-sidebar.css"/>
+	<link rel="stylesheet" type="text/css" href="../node_modules/sweetalert/dist/sweetalert.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/styles.css"/>
+	
+	<script type="text/javascript" src="../js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/bootstrap/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap/scrollspy.js"></script>
+	<script type="text/javascript" src="../node_modules/sweetalert/dist/sweetalert.min.js"></script>
+	<script type="text/javascript" src="../js/app.js"></script>
+	<script type="text/javascript">
+		global.window = window;
+		global.$ = $;
+		global.gui = require('nw.gui');
+		init();
+	</script>
+	
+</head>
+<body>
+    <div id="wrapper" class="active">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+			<ul class="sidebar-nav nav" id="spy">
+				<li class="sidebar-brand">
+					<a id="headline" href="#">Menu</a>
+				</li>
+				<li>
+					<a href="#Topic1" data-scroll>Topic 1</a>
+				</li>
+				<li>
+					<a href="#Topic2" data-scroll>Topic 2</a>
+				</li>
+				<li>
+					<a href="#Topic3" data-scroll>Topic 3</a>
+				</li>
+				<li>
+					<a href="#Help" data-scroll>Help?</a>
+				</li>
+			</ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+			<div class="container-fluid"><button title="Menu" href="#menu-toggle" class="btn btn-primary" id="menu-toggle">Menu <span id="main_icon" class="glyphicon glyphicon-align-justify"></span></button></div>		
+			
+            <div class="container-fluid" data-spy="scroll" data-target="#spy">
+				<!-- Section 1 -->
+				<div class="row" id="Topic1">
+						<h2>Section 1</h2>
+						<div class="form-group">
+							<label for="createdSince">created since</label>
+							<input type="time" class="form-control" id="createdSinceTime" placeholder="date-input">
+							<input type="date" class="form-control" id="createdSinceDate" placeholder="date-input">
+						</div>
+						<div class="form-group">
+							<label for="updatedSince">updated since</label>
+							<input type="date" class="form-control" id="updatedSince" placeholder="updated-since">
+						</div>
+				</div>
+				<!-- Section 2 -->
+                <div class="row" id="Topic2">
+						<h2>Section 2</h2>
+                </div>
+
+				<!-- Section 3 -->				
+                <div class="row" id="Topic3">
+						<h2>Section 3</h2>
+                </div>
+
+            </div>
+			<p class="stats"></p>
+        </div>
+        <!-- /#page-content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Menu Toggle Script -->
+    <script>
+	$("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+	});
+    </script>
+	
+</body>
+</html>
