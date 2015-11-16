@@ -33,3 +33,7 @@
 .stdout {
 	color: green;
 }
+
+.spacer {
+	padding-top: 1em;
+}

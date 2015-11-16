@@ -1,6 +1,6 @@
 function init(){
 	/*NODE MODULES*/
-	
+	var moment = require('moment');	
 	/* OWN MODULES:
 	 * Note: NW.js does not support normal require for
 	 * own modules.
@@ -8,19 +8,12 @@ function init(){
 	 * or process.cwd() i.e. main folder with package.json! 
 	 */
 	var rest = require('./../js/mi5-modules/rest');
-	var moment = require('moment');
+	var initFields = require('./../js/mi5-modules/initFields');
+
 	
 	global.$(global.window.document).ready(function(){
-			$("body").on('click', "#getTime", function(e) {
-				e.preventDefault();
-				console.log(global.$('#updatedSinceDate').val());
-				console.log($('#createdSinceTime').val());
-				rest.getOrdersFiltered('done', $('#createdSinceTime').val().toString(), $('#updatedSinceDate').val().toString(), "['Cocktails']")
-					.then(function(ret){
-						console.log(ret);
-					});
-
-			});
+			initFields.initFields();
+			//initFields.initUpdateListener();
 		
 			rest.checkConnection()
 				.then(function(ret){
@@ -31,8 +24,14 @@ function init(){
 				.then(function(ret){
 					console.log(ret);
 				});
-			
+				
+			global.$('#orderTable').on('click-row.bs.table', function(row, el){
+				console.log(el);
+				
+				initFields.initModal(el);
 
+			});
+			
 				
 			console.log(moment(new Date(2015,08,09,10,22)).format());
 			

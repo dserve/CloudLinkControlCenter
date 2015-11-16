@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "bluebird": "^3.0.5",
+    "bootstrap-slider": "^5.2.5",
+    "bootstrap-table": "git+https://github.com/wenzhixin/bootstrap-table.git",
     "moment": "^2.10.6",
     "request": "^2.65.0",
     "sweetalert": "*",

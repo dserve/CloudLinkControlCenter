@@ -48,11 +48,95 @@ rest.prototype.getOrdersByStatus = function(status){
   });
 };
 
-rest.prototype.getOrdersFiltered = function(status, createdSince, updatedSince, type){
+rest.prototype.getActiveOrders = function(status){
+  var options = {
+    url:  urljoin(config.rest.host, config.rest.getActiveOrders),
+    rejectUnauthorized: false, // TODO certificate needs to be bundled correctly
+    auth: config.auth
+  };
+
+  return new Promise(function(resolve, reject){
+    request.post(options, function(err, res, body){
+      if(err) reject(err);
+      try {
+        body = JSON.parse(body);
+        resolve(body);
+      } catch (err){
+        reject('could not perform getOrdersByStatus, maybe server is not reached, or body is not json');
+      }
+    });
+  });
+};
+
+rest.prototype.getOrdersUpdatedSince = function(timestamp){
+  var options = {
+    url:  urljoin(config.rest.host, 'getOrdersUpdatedSince'),
+    rejectUnauthorized: false, // TODO certificate needs to be bundled correctly
+    timestamp: timestamp,
+    auth: config.auth
+  };
+
+  return new Promise(function(resolve, reject){
+    request.post(options, function(err, res, body){
+      if(err) reject(err);
+      try {
+        body = JSON.parse(body);
+        resolve(body);
+      } catch (err){
+        reject('could not perform getOrdersByStatus, maybe server is not reached, or body is not json');
+      }
+    });
+  });
+};
+
+rest.prototype.getCocktailDataByOrderId = function(id){
+  var options = {
+    url:  urljoin(config.rest.host, 'getCocktailDataByOrderId'),
+    rejectUnauthorized: false, // TODO certificate needs to be bundled correctly
+    form: {id: id},
+    auth: config.auth
+  };
+
+  return new Promise(function(resolve, reject){
+    request.post(options, function(err, res, body){
+      if(err) reject(err);
+      try {
+        body = JSON.parse(body);
+        resolve(body);
+      } catch (err){
+        reject(err);
+      }
+    });
+  });
+};
+
+rest.prototype.getOrderById = function(id){
+  var options = {
+    url:  urljoin(config.rest.host, 'getOrderById'),
+    rejectUnauthorized: false, // TODO certificate needs to be bundled correctly
+    form: {id: id},
+    auth: config.auth
+  };
+
+  return new Promise(function(resolve, reject){
+    request.post(options, function(err, res, body){
+      if(err) reject(err);
+      try {
+        body = JSON.parse(body);
+        resolve(body);
+      } catch (err){
+        reject('could not perform getOrdersByStatus, maybe server is not reached, or body is not json');
+      }
+    });
+  });
+};
+
+
+rest.prototype.getOrdersFiltered = function(filter){
   var options = {
     url:  urljoin(config.rest.host, 'getOrdersFiltered'),
     rejectUnauthorized: false, // TODO certificate needs to be bundled correctly
-    form: {status: status, createdSince: createdSince, updatedSince: updatedSince, type: type},
+    form: filter,
     auth: config.auth
   };
 
