@@ -9,10 +9,13 @@ function init(){
 	 */
 	var rest = require('./../js/mi5-modules/rest');
 	var initFields = require('./../js/mi5-modules/initFields');
+	var Listener = require('./../js/mi5-modules/Listener');
 
 	
 	global.$(global.window.document).ready(function(){
 			initFields.initFields();
+			Listener.Listen();
+
 			//initFields.initUpdateListener();
 		
 			rest.checkConnection()
@@ -31,8 +34,7 @@ function init(){
 				initFields.initModal(el);
 
 			});
-			
-				
+
 			console.log(moment(new Date(2015,08,09,10,22)).format());
 			
 

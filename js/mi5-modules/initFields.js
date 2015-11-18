@@ -71,19 +71,61 @@ init.prototype.initFields = function(){
 		});
 };
 
-init.prototype.initModal = function(el){
+init.prototype.initModal = function(order){
 
 	global.$('#orderModal').modal();
-	global.$('#orderModalTitle').append("View Order "+el.orderId);//+ el.orderId;	
-	global.$('#modalContent').append(JSON.stringify(el));
+	global.$('#orderModalTitle').html("View Order "+order.orderId);//+ el.orderId;
+	
 	
 	$('#orderModalTable').bootstrapTable({
 		cardView: 'true',
 		columns:[{
 			field: 'orderId',
 			title: 'orderId'
+		},
+		{
+			field: 'customerName',
+			title: 'customer name'
+		},
+		{
+			field: 'marketPlaceId',
+			title: 'origin'
+		},
+		{
+			field: 'status',
+			title: 'status'
+		},
+		{
+			field: 'reviewed',
+			title: 'reviewed'
+		},
+		{
+			field: 'barcode',
+			title: 'barcode'
+		},
+		{
+			field: 'date',
+			title: 'date'
+		},
+		{
+			field: 'parameters',
+			title: 'parameters'
+		},
+		{
+			field: 'priority',
+			title: 'priority'
+		},
+		{
+			field: 'estimatedTimeOfCompletion',
+			title: 'remaining time'
 		}],
-		data: el
+		data: [order]
+	});
+	
+	validStatus.forEach(function(el){
+		var input = '<li><a href="#" class="SetOrderStatusBtn" name="'+order.orderId+'">'+el+'</a></li>';
+		console.log(input);
+		$('#chosableStatuses').prepend(input);
 	});
 	
 /* 	rest.getCocktailDataByOrderId(el.orderId)
