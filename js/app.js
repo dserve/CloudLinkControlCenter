@@ -8,12 +8,13 @@ function init(){
 	 * or process.cwd() i.e. main folder with package.json! 
 	 */
 	var rest = require('./../js/mi5-modules/rest');
-	var initFields = require('./../js/mi5-modules/initFields');
+	var init = require('./../js/mi5-modules/init');
 	var Listener = require('./../js/mi5-modules/Listener');
 
 	
 	global.$(global.window.document).ready(function(){
-			initFields.initFields();
+			init.update();
+			init.initFields();
 			Listener.Listen();
 
 			//initFields.initUpdateListener();
@@ -31,11 +32,17 @@ function init(){
 			global.$('#orderTable').on('click-row.bs.table', function(row, el){
 				console.log(el);
 				
-				initFields.initModal(el);
+				init.initModal(el);
 
 			});
 
 			console.log(moment(new Date(2015,08,09,10,22)).format());
+			
+			window.setInterval(function(){
+				init.update();
+				$('#orderTable').bootstrapTable('refresh', {silent:true});
+				console.log('refresh');
+			},2000);
 			
 
 	});

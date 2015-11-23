@@ -7,10 +7,24 @@ var config = require('./../../config.js');
 var validStatus = config.order.validStatus;
 var rest = require('./rest');
 var moment = require('moment');
+var fs = require('fs');
 var update;
+
 
 function init(){
 	update = new Date();
+}
+
+init.prototype.update = function(){
+	rest.getOrdersFiltered({})
+	.then(function(ret){
+		update = new Date();
+		fs.writeFile('./data/orders.json', JSON.stringify(ret));
+		
+	})
+	.catch(function(err){
+		console.log(err);
+	});	
 }
 
 init.prototype.initFields = function(){
@@ -21,54 +35,44 @@ init.prototype.initFields = function(){
 		global.$('#CheckStatus').append('<input type="checkbox" id="'+id+'" checked>'+item+'</input>  ');
 	});
 	
-	rest.getOrdersFiltered({})
-		.then(function(ret){
-			update = new Date();
-			ret = ret.filter(function(el){
-				return (typeof el.orderId != 'undefined');
-			});
- 			global.$('#orderTable').bootstrapTable({
-				idField: 'orderId',
-				columns: [{
-					field: 'orderId',
-					title: 'orderId',
-					sortable: 'true',
-					sortOrder: 'asc'
-				},
-				{
-					field: 'recipeId',
-					title: 'recipeId',
-					sortable: 'true'
-				},
-				{
-					field: 'marketPlaceId',
-					title: 'origin',
-					sortable: 'true'
-				},
-				{
-					field: 'priority',
-					title: 'priority',
-					sortable: 'true',
-					visible: 'false',
-					cardVisible: 'false'
-				},
-				{
-					field: 'status',
-					title: 'status',
-					sortable: 'true',
-					cardVisible: 'true'
-				},
-				{
-					field: 'estimatedTimeOfCompletion',
-					title: 'remaining time',
-					sortable: 'true'
-				}],
-				data: ret
-			}); 
-		})
-		.catch(function(err){
-			console.log(err);
-		});
+	global.$('#orderTable').bootstrapTable({
+		idField: 'orderId',
+		columns: [{
+			field: 'orderId',
+			title: 'orderId',
+			sortable: 'true',
+			sortOrder: 'asc'
+		},
+		{
+			field: 'recipeId',
+			title: 'recipeId',
+			sortable: 'true'
+		},
+		{
+			field: 'marketPlaceId',
+			title: 'origin',
+			sortable: 'true'
+		},
+		{
+			field: 'priority',
+			title: 'priority',
+			sortable: 'true',
+			visible: 'false',
+			cardVisible: 'false'
+		},
+		{
+			field: 'status',
+			title: 'status',
+			sortable: 'true',
+			cardVisible: 'true'
+		},
+		{
+			field: 'estimatedTimeOfCompletion',
+			title: 'remaining time',
+			sortable: 'true'
+		}],
+		url: './../data/orders.json'
+	}); 
 };
 
 init.prototype.initModal = function(order){
@@ -121,7 +125,7 @@ init.prototype.initModal = function(order){
 		}],
 		data: [order]
 	});
-	
+	$('#chosableStatuses').empty();
 	validStatus.forEach(function(el){
 		var input = '<li><a href="#" class="SetOrderStatusBtn" name="'+order.orderId+'">'+el+'</a></li>';
 		console.log(input);
