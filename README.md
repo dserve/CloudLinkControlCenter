@@ -5,17 +5,10 @@ The app is based on [nw.js](http://nwjs.io/), which is also on [github](https://
 
 ## Getting Started
 
-First, download and install [nw.js](http://nwjs.io/downloads/). If necessary, add nw to your `$PATH`.
+* First, download and install [nw.js](http://nwjs.io/downloads/). If necessary, add nw to your `$PATH`.
 
-Then run
+* Run ```npm install``` in the folder of this file.
 
-```npm install```
+* Editing and rename the file `config.js`
 
-in the folder of this file.
-
-After editing and renaming the file `config.js`, run
-
-```nw .```
-
-at the same place to start this app.
-
+* Now you are ready to run this app with ```nw .``` where the `package.json` file lives.
